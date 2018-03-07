@@ -12,6 +12,15 @@ export function login(username, password) {
   })
 }
 
+export function register(data) {
+  data.role = data.role - 0
+  return request({
+    url: '/admin/a/register',
+    method: 'post',
+    data
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: '/user/a/me',

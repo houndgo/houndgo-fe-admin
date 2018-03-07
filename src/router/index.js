@@ -51,10 +51,32 @@ export const constantRouterMap = [
         meta: { title: '用户列表', icon: 'user' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'add',
+        name: 'Add',
+        component: () => import('@/views/user/add'),
+        meta: { title: '添加用户', icon: 'user' }
+      }
+    ]
+  },
+
+  {
+    path: '/content',
+    component: Layout,
+    redirect: '/conten/list',
+    name: 'Content',
+    meta: { title: '内容管理', icon: 'form' },
+    children: [
+      {
+        path: 'category',
+        name: 'categoryList',
+        component: () => import('@/views/category/index'),
+        meta: { title: '栏目', icon: 'form' }
+      },
+      {
+        path: 'add',
+        name: 'Add',
+        component: () => import('@/views/user/add'),
+        meta: { title: '新闻', icon: 'form' }
       }
     ]
   },

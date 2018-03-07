@@ -6,13 +6,12 @@ import { getToken } from '@/utils/auth'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
-  timeout: 15000 // 请求超时时间
+  timeout: 25000 // 请求超时时间
 })
 
 // request拦截器
 service.interceptors.request.use(config => {
   const token = store.getters.token
-  console.log(token)
   if (token) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
@@ -38,9 +37,9 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
-      // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+      // 40029:非法的、过期的token;
+      if (res.code === 40029) {
+        MessageBox.confirm('登录过期', '确定登出', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
           type: 'warning'
